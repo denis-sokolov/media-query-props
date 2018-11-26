@@ -4,16 +4,16 @@ import { createMediaQueries, MediaQueries } from "..";
 
 function compute<Props extends object>(
   props: Props,
-  f: (props: MediaQueries<Props>) => object,
+  styleFunction: (props: MediaQueries<Props>) => object,
   transform: (styles: any[]) => any
 ): Promise<unknown> {
   return new Promise(resolve => {
     const mediaQueries = createMediaQueries(list => resolve(transform(list)));
-    mediaQueries(props, f as any);
+    mediaQueries(props, styleFunction as any);
   });
 }
 
-function f(props: { show: boolean }) {
+function showDisplay(props: { show: boolean }) {
   return { display: props.show ? "block" : "none" };
 }
 
@@ -46,6 +46,6 @@ function merge(styles: any[]): object {
   }
 ].forEach(function({ expected, input, name }, i) {
   test(name || `sanity row ${i}`, async t => {
-    t.deepEqual(await compute(input, f, merge), expected);
+    t.deepEqual(await compute(input, showDisplay, merge), expected);
   });
 });

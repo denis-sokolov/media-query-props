@@ -12,22 +12,26 @@ function filterUndefinedValues<T extends object>(input: T): T {
 export default function createMediaQueries<
   CSSRules extends object,
   Result = string
->(transformResult: (s: (CSSRules | { [k: string]: CSSRules })[]) => Result) {
+>(
+  transformResult: (
+    styles: (CSSRules | { [mediaQuery: string]: CSSRules })[]
+  ) => Result
+) {
   return function mediaQueries<Props extends MediaQueries>(
     props: Props,
-    f: (t: ExtractMqProps<Props>) => CSSRules
+    styleFunction: (t: ExtractMqProps<Props>) => CSSRules
   ): Result {
     const propsWithoutMq = { ...(props as any) };
     delete propsWithoutMq.mediaQueries;
 
-    const result: (CSSRules | { [k: string]: CSSRules })[] = [
-      f(propsWithoutMq)
+    const result: (CSSRules | { [mediaQuery: string]: CSSRules })[] = [
+      styleFunction(propsWithoutMq)
     ];
 
     const mediaQueries = props.mediaQueries || {};
     Object.keys(mediaQueries).forEach(query => {
       result.push({
-        [query]: f({
+        [query]: styleFunction({
           ...(propsWithoutMq as object),
           ...filterUndefinedValues(mediaQueries[query])
         })
