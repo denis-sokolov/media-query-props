@@ -1,0 +1,42 @@
+{
+  "name": "media-query-props",
+  "description": "Use native CSS media queries to customize component props",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rm -rf dist && tsc",
+    "ci": "npm run verify",
+    "format": "prettier --write 'src/**/*.ts' tsconfig.json",
+    "format-verify": "prettier --list-different 'src/**/*.ts' tsconfig.json",
+    "prepublishOnly": "npm run build",
+    "test": "npm run build && ava",
+    "typecheck": "tsc --noEmit",
+    "verify": "npm run typecheck && npm run format-verify"
+  },
+  "engines": {
+    "node": ">=10",
+    "npm": ">=6"
+  },
+  "author": "Denis Sokolov",
+  "bugs": {
+    "url": "https://github.com/denis-sokolov/media-query-props/issues"
+  },
+  "homepage": "https://github.com/denis-sokolov/media-query-props#readme",
+  "keywords": [
+    "react",
+    "media",
+    "query",
+    "queries",
+    "media query",
+    "media queries",
+    "props"
+  ],
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/denis-sokolov/media-query-props.git"
+  },
+  "devDependencies": {
+    "prettier": "^1.15.2",
+    "typescript": "^3.1.6"
+  }
+}
