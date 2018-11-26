@@ -7,7 +7,11 @@ function compute<Props extends object>(
   f: (props: MediaQueries<Props>) => object
 ): Promise<unknown> {
   return new Promise(resolve => {
-    const mediaQueries = createMediaQueries(resolve);
+    const mediaQueries = createMediaQueries(list => {
+      const result: any = {};
+      list.forEach(k => Object.assign(result, k));
+      resolve(result);
+    });
     mediaQueries(props, f as any);
   });
 }

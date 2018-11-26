@@ -65,7 +65,7 @@ type Props = FixMerge<PropsA, PropsB>;
 
 The package is available [on npm as `media-query-props`](https://www.npmjs.com/package/media-query-props).
 
-Configure it for your CSS tooling by calling the factory function with a type parameter describing what your callback functions are supposed to return, and a function parameter transforming a nested object of your styles into a single result, most likely a class name you will apply to elements.
+Configure it for your CSS tooling by calling the factory function with a type parameter describing what your callback functions are supposed to return, and a function parameter transforming a list of nested style objects into a single result, most likely a class name you will apply to elements.
 
 For an example, here is how I configure it to use with Emotion.
 

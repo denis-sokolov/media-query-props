@@ -1,4 +1,4 @@
-import { ExtractMqProps, MediaQueries, NestedCSSRules } from "./mainTypes";
+import { ExtractMqProps, MediaQueries } from "./mainTypes";
 
 function filterUndefinedValues<T extends object>(input: T): T {
   const output: any = {};
@@ -12,7 +12,7 @@ function filterUndefinedValues<T extends object>(input: T): T {
 export default function createMediaQueries<
   CSSRules extends object,
   Result = string
->(transformResult: (s: NestedCSSRules<CSSRules>) => Result) {
+>(transformResult: (s: (CSSRules | { [k: string]: CSSRules })[]) => Result) {
   return function mediaQueries<Props extends MediaQueries>(
     props: Props,
     f: (t: ExtractMqProps<Props>) => CSSRules
@@ -20,13 +20,17 @@ export default function createMediaQueries<
     const propsWithoutMq = { ...(props as any) };
     delete propsWithoutMq.mediaQueries;
 
-    const result = f(propsWithoutMq) as NestedCSSRules<CSSRules>;
+    const result: (CSSRules | { [k: string]: CSSRules })[] = [
+      f(propsWithoutMq)
+    ];
 
     const mediaQueries = props.mediaQueries || {};
     Object.keys(mediaQueries).forEach(query => {
-      result[query] = f({
-        ...(propsWithoutMq as object),
-        ...filterUndefinedValues(mediaQueries[query])
+      result.push({
+        [query]: f({
+          ...(propsWithoutMq as object),
+          ...filterUndefinedValues(mediaQueries[query])
+        })
       });
     });
 
