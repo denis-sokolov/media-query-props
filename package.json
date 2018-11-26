@@ -10,7 +10,8 @@
     "prepublishOnly": "npm run build",
     "test": "npm run build && ava",
     "typecheck": "tsc --noEmit",
-    "verify": "npm run typecheck && npm run format-verify"
+    "verify": "npm run typecheck && npm run format-verify && npm test",
+    "watch-tests": "(npm run build || true) && tsc-watch --onSuccess ava --onFailure ava"
   },
   "engines": {
     "node": ">=10",
@@ -36,7 +37,9 @@
     "url": "git+https://github.com/denis-sokolov/media-query-props.git"
   },
   "devDependencies": {
+    "ava": "^0.25.0",
     "prettier": "^1.15.2",
+    "tsc-watch": "^1.0.30",
     "typescript": "^3.1.6"
   }
 }
