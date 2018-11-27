@@ -9,14 +9,21 @@ function filterUndefinedValues<T extends object>(input: T): T {
   return output;
 }
 
+type Options = {
+  validateMediaQuery?: (query: string) => boolean;
+};
+
 export default function createMediaQueries<
   CSSRules extends object,
   Result = string
 >(
   transformResult: (
     styles: (CSSRules | { [mediaQuery: string]: CSSRules })[]
-  ) => Result
+  ) => Result,
+  options: Options = {}
 ) {
+  const validateMediaQuery =
+    options.validateMediaQuery || (query => query.startsWith("@media"));
   return function mediaQueries<Props extends MediaQueries>(
     props: Props,
     styleFunction: (t: ExtractMqProps<Props>) => CSSRules
@@ -30,6 +37,8 @@ export default function createMediaQueries<
 
     const mediaQueries = props.mediaQueries || {};
     Object.keys(mediaQueries).forEach(query => {
+      if (!validateMediaQuery(query))
+        throw new Error(`Invalid media query "${query}"`);
       result.push({
         [query]: styleFunction({
           ...(propsWithoutMq as object),

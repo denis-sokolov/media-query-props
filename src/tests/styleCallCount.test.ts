@@ -15,9 +15,12 @@ test("call the style function once without nested queries", t => {
 
 test("call the style function for every nested query", t => {
   let count = 0;
-  dummyMediaQueries({ mediaQueries: { foo: {}, bar: {} } }, () => {
-    count += 1;
-    return {};
-  });
+  dummyMediaQueries(
+    { mediaQueries: { "@media foo": {}, "@media bar": {} } },
+    () => {
+      count += 1;
+      return {};
+    }
+  );
   t.is(count, 3);
 });

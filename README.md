@@ -76,3 +76,16 @@ import { css } from "emotion";
 export const mediaQueries = createMediaQueriesFunction<CSSObject>(css);
 export { MediaQueries, FixMerge } from "./media-query-props";
 ```
+
+You can customize the factory with options:
+
+```ts
+createMediaQueriesFunction<CSSObject>(css, {
+  // By default we prevent the users of the components from
+  // adding their own nested selectors to ensure the encapsulation
+  // of your components. Otherwise they could add nested selectors:
+  // ['& div p']: { display: 'none' }
+  // You can customize this conditional
+  validateMediaQuery: query => query.startsWith("@media")
+});
+```

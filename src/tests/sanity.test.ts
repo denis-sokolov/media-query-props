@@ -28,21 +28,21 @@ function merge(styles: any[]): object {
   { input: { show: false }, expected: { display: "none" } },
   {
     name: "simple nested",
-    input: { show: true, mediaQueries: { "small-screens": { show: false } } },
-    expected: { display: "block", "small-screens": { display: "none" } }
+    input: { show: true, mediaQueries: { "@media small": { show: false } } },
+    expected: { display: "block", "@media small": { display: "none" } }
   },
   {
     name: "missing nested prop",
-    input: { show: true, mediaQueries: { "small-screens": {} } },
-    expected: { display: "block", "small-screens": { display: "block" } }
+    input: { show: true, mediaQueries: { "@media small": {} } },
+    expected: { display: "block", "@media small": { display: "block" } }
   },
   {
     name: "undefined nested prop",
     input: {
       show: true,
-      mediaQueries: { "small-screens": { show: undefined } }
+      mediaQueries: { "@media small": { show: undefined } }
     },
-    expected: { display: "block", "small-screens": { display: "block" } }
+    expected: { display: "block", "@media small": { display: "block" } }
   }
 ].forEach(function({ expected, input, name }, i) {
   test(name || `sanity row ${i}`, async t => {
