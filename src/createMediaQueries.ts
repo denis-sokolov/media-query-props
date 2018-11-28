@@ -13,10 +13,7 @@ type Options = {
   validateMediaQuery?: (query: string) => boolean;
 };
 
-export default function createMediaQueries<
-  CSSRules extends object,
-  Result = string
->(
+export default function createMediaQueries<CSSRules, Result = string>(
   transformResult: (
     styles: (CSSRules | { [mediaQuery: string]: CSSRules })[]
   ) => Result,
