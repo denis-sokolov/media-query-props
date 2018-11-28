@@ -69,3 +69,20 @@ Sample({
   showTitle: true,
   mediaQueries: { foo: { showTitle: false } }
 });
+
+Sample({
+  title: "Hi",
+  showTitle: true,
+  // typings:expect-error
+  mediaQueriesExclusive: false
+});
+
+Sample({
+  title: "Hi",
+  showTitle: true,
+  mediaQueries: {
+    foo: { showTitle: false },
+    bar: { showTitle: false }
+  },
+  mediaQueriesExclusive: true
+});

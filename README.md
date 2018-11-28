@@ -16,6 +16,8 @@ No higher-order components, no run-time resize events, full power of arbitrary m
   >
 ```
 
+If you add more than one media query at once, see [the mediaQueriesExclusive gotcha](docs/ExclusiveQueries.md).
+
 ## Usage
 
 After the initial configuration described below, use this module when authoring your components. Decide which props you want to allow to customize by media queries and wrap them in the MediaQueries type. The values of these props are not limited to any css values.

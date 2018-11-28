@@ -36,7 +36,14 @@ export default function createMediaQueries<
     ];
 
     const mediaQueries = props.mediaQueries || {};
-    Object.keys(mediaQueries).forEach(query => {
+    const queries = Object.keys(mediaQueries);
+
+    if (queries.length > 1 && !props.mediaQueriesExclusive)
+      throw new Error(
+        "Unfortunately, media-query-props queries should be treated as exclusive. Add `mediaQueriesExclusive` prop to your component to acknowledge the warning. See the documentation for more details: https://github.com/denis-sokolov/media-query-props/blob/master/docs/ExclusiveQueries.md`"
+      );
+
+    queries.forEach(query => {
       if (!validateMediaQuery(query))
         throw new Error(`Invalid media query "${query}"`);
       result.push({
