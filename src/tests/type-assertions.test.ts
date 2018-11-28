@@ -3,7 +3,7 @@ import { check } from "typings-tester";
 
 test("typings", t => {
   try {
-    check(["./src/tests/type-failures.js"], "tsconfig.json");
+    check(["./type-assertions/index.ts"], "tsconfig.json");
     t.pass();
   } catch (err) {
     t.fail(err.message);
